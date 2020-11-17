@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"regexp"
+	"github.com/stockbit/third_answer/utils"
 )
 
 func main() {
@@ -16,7 +16,7 @@ func main() {
 	fmt.Scanln(&str)
 
 	// find first string in bracket from user input
-	firstString := findFirstStringInBracket(str)
+	firstString := utils.FindFirstStringInBracket(str)
 
 	// show result
 	if len(firstString) > 0 {
@@ -24,23 +24,4 @@ func main() {
 	} else {
 		fmt.Println("String in Bracket not found")
 	}
-}
-
-func findFirstStringInBracket(str string) string {
-	// return empty string if str len is zero or less
-	if len(str) <= 0 {
-		return ""
-	}
-
-	// find first string inside bracket with regex
-	re := regexp.MustCompile(`\((.*?)\)`)
-	firstStringWithBracket := re.FindString(str)
-
-	// return empty string if string with bracket not exist
-	if len(firstStringWithBracket) <= 0 {
-		return ""
-	}
-
-	// return and trim bracket from string
-	return firstStringWithBracket[1:][:len(firstStringWithBracket)-2]
 }

@@ -4,7 +4,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"github.com/muhammadaser/stockbit/second_answer/movie/proto"
+	proto "github.com/muhammadaser/stockbit_proto"
 	"google.golang.org/grpc"
 	"log"
 	"net"

@@ -2,7 +2,7 @@ package modules
 
 import (
 	"github.com/muhammadaser/stockbit/second_answer/movie/client/config"
-	"github.com/muhammadaser/stockbit/second_answer/movie/proto"
+	proto "github.com/muhammadaser/stockbit_proto"
 	"github.com/prometheus/common/log"
 	"google.golang.org/grpc"
 )

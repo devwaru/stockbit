@@ -7,9 +7,8 @@ type Server struct {
 }
 
 type DB struct {
-	DSN         string `toml:"dsn"`
-	MaxConn     int    `toml:"max_conn"`
-	MaxIdleConn int    `toml:"max_idle_conn"`
+	DSN    string `toml:"dsn"`
+	IsMock bool   `toml:"is_mock"`
 }
 
 // for now, just put api key on config file, next improvement, need to move to other place

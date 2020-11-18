@@ -8,7 +8,7 @@ import (
 	"net/http"
 )
 
-func (o *Omdb) GetMovies(httpClient *http.Client, params MoviesRequest) (*MoviesResponse, error) {
+func (o *Omdb) GetMovies(httpClient *http.Client, params MoviesRequest) (*MoviesResponse, []byte, error) {
 
 	// query params
 	queryParams := map[string]string{
@@ -20,7 +20,7 @@ func (o *Omdb) GetMovies(httpClient *http.Client, params MoviesRequest) (*Movies
 	resByte, err := network.Do(httpClient, http.MethodGet, o.Host, queryParams, nil, nil)
 	if err != nil {
 		log.Print(err)
-		return nil, err
+		return nil, nil, err
 	}
 
 	var res MoviesResponse
@@ -28,14 +28,14 @@ func (o *Omdb) GetMovies(httpClient *http.Client, params MoviesRequest) (*Movies
 	err = json.Unmarshal(resByte, &res)
 	if err != nil {
 		log.Print(err)
-		return nil, err
+		return nil, nil, err
 	}
 
-	return &res, nil
+	return &res, resByte, nil
 
 }
 
-func (o *Omdb) GetMovie(httpClient *http.Client, imdbId string) (*MovieResponse, error) {
+func (o *Omdb) GetMovie(httpClient *http.Client, imdbId string) (*MovieResponse, []byte, error) {
 
 	// query params
 	queryParams := map[string]string{
@@ -46,7 +46,7 @@ func (o *Omdb) GetMovie(httpClient *http.Client, imdbId string) (*MovieResponse,
 	resByte, err := network.Do(httpClient, http.MethodGet, o.Host, queryParams, nil, nil)
 	if err != nil {
 		log.Print(err)
-		return nil, err
+		return nil, nil, err
 	}
 
 	var res MovieResponse
@@ -54,9 +54,9 @@ func (o *Omdb) GetMovie(httpClient *http.Client, imdbId string) (*MovieResponse,
 	err = json.Unmarshal(resByte, &res)
 	if err != nil {
 		log.Print(err)
-		return nil, err
+		return nil, nil, err
 	}
 
-	return &res, nil
+	return &res, resByte, nil
 
 }

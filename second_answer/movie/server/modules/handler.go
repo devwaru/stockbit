@@ -25,7 +25,14 @@ func (m *Module) GetMovies(ctx context.Context, params *proto.MovieParams) (*pro
 	}
 
 	// request to omdb api
-	omdbRes, err := m.OmdbApi.GetMovies(m.HttpClient, omdbMoviesParam)
+	omdbRes, resByte, err := m.OmdbApi.GetMovies(m.HttpClient, omdbMoviesParam)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	// insert api response to log in DB
+	err = m.InsertMovieLog(string(resByte))
 	if err != nil {
 		log.Println(err)
 		return nil, err
@@ -42,7 +49,7 @@ func (m *Module) GetMovies(ctx context.Context, params *proto.MovieParams) (*pro
 			Poster: movie.Poster,
 		}
 
-		movies = append(movies, m)
+		movies = append(movies, &m)
 	}
 
 	res := proto.MoviesRes{
@@ -60,7 +67,14 @@ func (m *Module) GetMovie(ctx context.Context, params *proto.SingleMovieParams) 
 	}
 
 	// request data to movie api
-	omdbMovie, err := m.OmdbApi.GetMovie(m.HttpClient, params.ImdbId)
+	omdbMovie, resByte, err := m.OmdbApi.GetMovie(m.HttpClient, params.ImdbId)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	// insert api response to log in DB
+	err = m.InsertMovieLog(string(resByte))
 	if err != nil {
 		log.Println(err)
 		return nil, err

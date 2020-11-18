@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-option go_package = "github.com/muhammadaser/stockbit/second_answer/movie/server/proto";
+option go_package = "github.com/muhammadaser/stockbit/second_answer/movie/proto";
 
-package server;
+package movie;
 
 service RouteMovie {
     rpc GetMovies(MovieParams) returns (MoviesRes) {}

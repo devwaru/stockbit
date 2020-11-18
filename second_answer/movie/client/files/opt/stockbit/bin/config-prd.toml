@@ -1,7 +1,7 @@
 [server]
 port = 8080
-log_path = "./log/aptana.log"
 http_timeout = 20000
+movie_server_addr = "localhost:8081"
 
 [DB]
 dsn = "postgres://root:@localhost:5432/aptana?sslmode=disable"

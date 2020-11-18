@@ -2,8 +2,8 @@ package config
 
 type Server struct {
 	Port               int
-	LogFilePath        string `toml:"log_path"`
 	DefaultHttpTimeout int    `toml:"http_timeout"`
+	MovieServerAddr    string `toml:"movie_server_addr"`
 }
 
 type DB struct {

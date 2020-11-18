@@ -2,18 +2,48 @@ package modules
 
 import (
 	"context"
+	"errors"
+	"github.com/muhammadaser/stockbit/second_answer/movie/server/api/omdb"
 	proto "github.com/muhammadaser/stockbit_proto/movie"
+	"log"
 )
 
 func (m *Module) GetMovies(ctx context.Context, params *proto.MovieParams) (*proto.MoviesRes, error) {
-	movie := proto.Movie{
-		ImdbId:     "tt0371746",
-		ImdbRating: "7.9",
-		ImdbVotes:  "927,094",
-		Title:      "Iron Man",
+
+	// validate request params
+	if params.Page <= 0 {
+		return nil, errors.New("page should bigger than zero")
 	}
+
+	if params.SearchWord == "" {
+		return nil, errors.New("search word should not empty")
+	}
+
+	omdbMoviesParam := omdb.MoviesRequest{
+		SearchWord: params.SearchWord,
+		Page:       int(params.Page),
+	}
+
+	// request to omdb api
+	omdbRes, err := m.OmdbApi.GetMovies(m.HttpClient, omdbMoviesParam)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	// construct data for movie search list
 	var movies []*proto.Movie
-	movies = append(movies, &movie)
+
+	for _, movie := range omdbRes.ResultSearch {
+		m := proto.Movie{
+			Title:  movie.Title,
+			Year:   movie.Year,
+			ImdbId: movie.ImdbID,
+			Poster: movie.Poster,
+		}
+
+		movies = append(movies, m)
+	}
 
 	res := proto.MoviesRes{
 		Movies: movies,
@@ -22,13 +52,38 @@ func (m *Module) GetMovies(ctx context.Context, params *proto.MovieParams) (*pro
 	return &res, nil
 }
 
-func (m *Module) GetMovie(context.Context, *proto.SingleMovieParams) (*proto.Movie, error) {
+func (m *Module) GetMovie(ctx context.Context, params *proto.SingleMovieParams) (*proto.Movie, error) {
 
+	// validate imdbId
+	if params.ImdbId == "" {
+		return nil, errors.New("imdbId should not empty")
+	}
+
+	// request data to movie api
+	omdbMovie, err := m.OmdbApi.GetMovie(m.HttpClient, params.ImdbId)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+
+	// construct data for movie
 	movie := proto.Movie{
-		ImdbId:     "tt0371746",
-		ImdbRating: "7.9",
-		ImdbVotes:  "927,094",
-		Title:      "Iron Man",
+		Title:      omdbMovie.Title,
+		Year:       omdbMovie.Year,
+		Rated:      omdbMovie.Rated,
+		Released:   omdbMovie.Released,
+		Runtime:    omdbMovie.Runtime,
+		Genre:      omdbMovie.Genre,
+		Director:   omdbMovie.Director,
+		Writer:     omdbMovie.Writer,
+		Actors:     omdbMovie.Actors,
+		Plot:       omdbMovie.Plot,
+		Language:   omdbMovie.Language,
+		Poster:     omdbMovie.Poster,
+		Production: omdbMovie.Production,
+		ImdbId:     omdbMovie.ImdbID,
+		ImdbRating: omdbMovie.ImdbRating,
+		ImdbVotes:  omdbMovie.ImdbVotes,
 	}
 
 	return &movie, nil

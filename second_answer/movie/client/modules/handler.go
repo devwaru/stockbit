@@ -2,7 +2,7 @@ package modules
 
 import (
 	"context"
-	proto "github.com/muhammadaser/stockbit_proto"
+	proto "github.com/muhammadaser/stockbit_proto/movie"
 	"log"
 	"net/http"
 )

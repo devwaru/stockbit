@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/stockbit/third_answer/utils"
+	"github.com/muhammadaser/stockbit/third_answer/utils"
 )
 
 func main() {

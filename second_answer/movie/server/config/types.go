@@ -11,3 +11,9 @@ type DB struct {
 	MaxConn     int    `toml:"max_conn"`
 	MaxIdleConn int    `toml:"max_idle_conn"`
 }
+
+// for now, just put api key on config file, next improvement, need to move to other place
+type Omdb struct {
+	Host   string `toml:"host"`
+	ApiKey string `toml:"api_key"`
+}

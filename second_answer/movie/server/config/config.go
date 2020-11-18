@@ -14,6 +14,7 @@ var directories = []string{
 type Config struct {
 	Server Server
 	DB     DB
+	Omdb   Omdb `toml:"omdb"`
 }
 
 var config *Config

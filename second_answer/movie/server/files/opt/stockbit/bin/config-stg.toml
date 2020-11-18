@@ -7,3 +7,7 @@ movie_server_addr = "localhost:8081"
 dsn = "postgres://root:@localhost:5432/stockbit?sslmode=disable"
 max_conn = 10
 max_idle_conn = 5
+
+[omdb]
+host = "http://www.omdbapi.com"
+api_key = "faf7e5bb"

@@ -1,7 +1,7 @@
 package utils_test
 
 import (
-	"github.com/stockbit/third_answer/utils"
+	"github.com/muhammadaser/stockbit/third_answer/utils"
 	"testing"
 )
 

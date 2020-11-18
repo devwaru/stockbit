@@ -1,7 +1,7 @@
 package anagram_test
 
 import (
-	"github.com/stockbit/fourth_answer/anagram"
+	"github.com/muhammadaser/stockbit/fourth_answer/anagram"
 	"reflect"
 	"testing"
 )

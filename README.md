@@ -17,7 +17,7 @@ or you can access on [this file](https://github.com/muhammadaser/stockbit/blob/m
 ### Answer For Question No 2 (write a microservice for search movies)
 
 This answer can access on [second_answer](https://github.com/muhammadaser/stockbit/tree/main/second_answer/movie) folder.
-this project contain 2 services, client and server. 
+this project contain 2 services, **client** and **server**. 
 steps to run this project is :
 
 #### Server
